@@ -1,5 +1,8 @@
 Some Pictures of the project:
 ![Screenshot](https://user-images.githubusercontent.com/41321919/106384906-969ee600-63f7-11eb-8296-b55443c3d959.png)
+![Screenshot](https://user-images.githubusercontent.com/41321919/106384906-969ee600-63f7-11eb-8296-b55443c3d959.png)
+![Screenshot (72)](https://user-images.githubusercontent.com/41321919/106384962-ebdaf780-63f7-11eb-9bbd-edef3b6b89d2.png)
+
 
 ## About Laravel
 
