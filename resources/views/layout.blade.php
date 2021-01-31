@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-
+ <!--Cart Item Number show-->   
+<?php
+use App\Http\Controllers\ProductCategoryController;
+$total_item=ProductCategoryController::cartItem();
+$cart_product=ProductCategoryController::cartList();
+?>
     <meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, shrink-to-fit=9">
@@ -30,6 +34,89 @@
 
 
 </head>
+	 <!-- Cart Sidebar Offset Start-->
+     <div class="bs-canvas bs-canvas-left position-fixed bg-cart h-100">
+		
+		<div class="bs-canvas-header side-cart-header p-3 ">
+		
+			<div class="d-inline-block  main-cart-title">My Cart <span>(2 Items)</span></div>
+			<button type="button" class="bs-canvas-close close" aria-label="Close"><i class="uil uil-multiply"></i></button>
+		</div> 
+		
+		<div class="bs-canvas-body">
+			<div class="cart-top-total">
+				<div class="cart-total-dil">
+					<h4>Esxence</h4>
+					{{-- <span>$34</span> --}}
+				</div>
+				<div class="cart-total-dil pt-2">
+					<h4>Delivery Charges</h4>
+					<span>$1</span>
+				</div>
+			</div>
+			<div class="side-cart-items">
+
+			<?php $total_price = 0 ?>
+			<?php $total_saving=0 ?>
+            @foreach($cart_product as $cart_product)
+				<div class="cart-item">
+					<div class="cart-product-img">
+						<img src="{{$cart_product->getProduct->product_image}}" alt="">
+						<?php 
+						$discount=($cart_product->getProduct->product_regular_price-$cart_product->getProduct->product_selling_price)/($cart_product->getProduct->product_regular_price*100);
+						?>
+						<div class="offer-badge">{{round($discount,1)}}%</div>
+					</div>
+					<div class="cart-text">
+						<h4>{{$cart_product->getProduct->product_name}}</h4>
+
+						<h4>{{$cart_product->getProduct->product_name}}</h4>
+						<div class="cart-radio">
+							<ul class="kggrm-now">
+								<td>৳ {{$cart_product->getProduct->product_selling_price}} /  {{$cart_product->getProduct->product_quantity}}</td>			
+							</ul>
+						</div>
+						<div class="qty-group">
+							<div class="quantity buttons_added">
+								<input type="button" value="-" class="minus minus-btn">
+								<input type="number" step="1" name="cart_product_quantity" value="{{$cart_product->cart_product_quantity}}"class="input-text qty text">
+								<input type="button" value="+" class="plus plus-btn">
+							</div>
+							<div class="cart-item-price">৳{{$cart_product->getProduct->product_selling_price*$cart_product->cart_product_quantity}} <span>৳{{$cart_product->getProduct->product_regular_price*$cart_product->cart_product_quantity}}</span></div>
+						</div>	
+						<button type="button" class="cart-close-btn"><i class="uil uil-multiply"></i></button>
+					</div>
+				</div>
+
+				<?php 
+				
+				$total_price += $cart_product->getProduct->product_selling_price*$cart_product->cart_product_quantity;
+				
+				$total_saving +=($cart_product->getProduct->product_regular_price*$cart_product->cart_product_quantity)-($cart_product->getProduct->product_selling_price*$cart_product->cart_product_quantity);
+				
+				?>
+
+			 @endforeach
+			 
+			</div>
+		</div>
+		<div class="bs-canvas-footer">
+			<div class="cart-total-dil saving-total ">
+				<h4>Total Saving</h4>
+				<span>৳ {{$total_saving}}</span>
+			</div>
+			<div class="main-total-cart">
+				<h2>Total</h2>
+				<span>৳ {{$total_price}}</span>
+			</div>
+			<div class="checkout-cart">
+				<a href="#" class="promo-code">Have a promocode?</a>
+				<a href="#" class="cart-checkout-btn hover-btn">Proceed to Checkout</a>
+			</div>
+		</div>
+		
+	</div>
+	<!-- Cart Sidebar Offsetl End-->
 <body>
 
 
@@ -38,11 +125,11 @@
     <div class="top-header-group">
         <div class="top-header">
             <div class="res_main_logo">
-                <a href="index.html"><img src="resources\frontend\images/dark-logo-1.svg" alt=""></a>
+                <a href="index.html"><img src="{{asset('resources\frontend\images/dark-logo-1.svg')}}"alt=""></a>
             </div>
             <div class="main_logo" id="logo">
-                <a href="{{url('/')}}"><img src="resources\frontend\images/logo.png" alt=""></a>
-                <a href="index.html"><img class="logo-inverse" src="resources\frontend\images/dark-logo.svg" alt=""></a>
+                <a href="{{url('/')}}"><img src="{{asset('resources\frontend\images/logo.png')}}" alt=""></a>
+                <a href="index.html"><img class="logo-inverse" src="{{asset('resources\frontend\images/dark-logo.svg')}}" alt=""></a>
             </div>
             <div class="select_location">
                 <div class="ui inline dropdown loc-title">
@@ -104,7 +191,7 @@
                     </li>	
                     <li class="ui dropdown">
                         <a href="#" class="opts_account">
-                            <img src="resources\frontend\images/avatar/img-5.jpg" alt="">
+                            <img src="{{asset('resources\frontend\images/avatar/img-5.jpg')}}" alt="">
                             <span class="user__name">John Doe</span>
                             <i class="uil uil-angle-down"></i>
                         </a>
@@ -181,12 +268,17 @@
                     </div>
                 </div>
             </nav>
+
+           
+
             <div class="catey__icon">
                 <a href="#" class="cate__btn" data-toggle="modal" data-target="#category_model" title="Categories"><i class="uil uil-apps"></i></a>
             </div>
+
             <div class="header_cart order-1">
-                <a href="#" class="cart__btn hover-btn pull-bs-canvas-left" title="Cart"><i class="uil uil-shopping-cart-alt"></i><span>Cart</span><ins>2</ins><i class="uil uil-angle-down"></i></a>
+                <a href="/cart_list" class="cart__btn hover-btn pull-bs-canvas-left" title="Cart"><i class="uil uil-shopping-cart-alt"></i><span>Cart</span><ins>{{$total_item}}</ins><i class="uil uil-angle-down"></i></a>
             </div>
+
             <div class="search__icon order-1">
                 <a href="#" class="search__btn hover-btn" data-toggle="modal" data-target="#search_model" title="Search"><i class="uil uil-search"></i></a>
             </div>
@@ -286,19 +378,19 @@
 							<div class="footer-payments">
 								<ul id="paypal-gateway" class="financial-institutes">
 									<li class="financial-institutes__logo">
-									  <img alt="Visa" title="Visa" src="resources\frontend\images/footer-icons/pyicon-6.svg">
+									  <img alt="Visa" title="Visa" src="{{asset('resources\frontend\images/footer-icons/pyicon-6.svg')}}">
 									</li>
 									<li class="financial-institutes__logo">
-									  <img alt="Visa" title="Visa" src="resources\frontend\images/footer-icons/pyicon-1.svg">
+									  <img alt="Visa" title="Visa" src="{{asset('resources\frontend\images/footer-icons/pyicon-1.svg')}}">
 									</li>
 									<li class="financial-institutes__logo">
-									  <img alt="MasterCard" title="MasterCard" src="resources\frontend\images/footer-icons/pyicon-2.svg">
+									  <img alt="MasterCard" title="MasterCard" src="{{asset('resources\frontend\images/footer-icons/pyicon-2.svg')}}">
 									</li>
 									<li class="financial-institutes__logo">
-									  <img alt="American Express" title="American Express" src="resources\frontend\images/footer-icons/pyicon-3.svg">
+									  <img alt="American Express" title="American Express" src="{{asset('resources\frontend\images/footer-icons/pyicon-3.svg')}}">
 									</li>
 									<li class="financial-institutes__logo">
-									  <img alt="Discover" title="Discover" src="resources\frontend\images/footer-icons/pyicon-4.svg">
+									  <img alt="Discover" title="Discover" src="{{asset('resources\frontend\images/footer-icons/pyicon-4.svg')}}">
 									</li>
 								</ul>
 							</div>

@@ -155,6 +155,12 @@ a {
 }
 
 /* ================ Typography Css =============== */
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   
+  }
 h1 {
 	font-size: 2em;
 	font-family: 'Roboto', sans-serif !important;
@@ -1472,7 +1478,7 @@ i.icon1 {
 }
 
 .quantity.buttons_added {
-	 text-align: left;
+    text-align: left;
 	 position: relative;
 	 white-space: nowrap;
 	 vertical-align: top; 
@@ -2124,7 +2130,7 @@ span.like-icon {
 }
 
 .cart-icon {
-    margin-left: auto;
+    margin-left: 110px;
     font-size: 20px;
     color: #c7c7c7;
 	cursor: pointer;

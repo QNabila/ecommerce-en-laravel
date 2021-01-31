@@ -1,7 +1,6 @@
 @extends('layout')
 @section('content')
 
-
     <!-- Offers Start -->
     <!-- Body Start -->
 	<div class="wrapper">
@@ -98,9 +97,10 @@
 		</div>
 		<!-- Offers End -->
 		<!-- Categories Start -->
-		<div class="section145">
+		<div class="section145" >
 			<div class="container">
 				<div class="row">
+					
 					<div class="col-md-12">
 						<div class="main-title-tt">
 							<div class="main-title-left">
@@ -109,102 +109,30 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-12">
+					
+					<div class="col-md-12"  style="height:300px; width:300px;">
 						<div class="owl-carousel cate-slider owl-theme">
+						@foreach($category as $category)
 							<div class="item">
 								<a href="#" class="category-item">
 									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-1.svg" alt="">
+										<img src="{{$category->category_image}}" alt="">
 									</div>
-									<h4>Vegetables & Fruits</h4>
+									<h4>{{$category->category_name}}</h4>
 								</a>
 							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-2.svg" alt="">
-									</div>
-									<h4> Grocery & Staples </h4>
-								</a>
-							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-3.svg" alt="">
-									</div>
-									<h4> Dairy & Eggs </h4>
-								</a>
-							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-4.svg" alt="">
-									</div>
-									<h4> Beverages </h4>
-								</a>
-							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-5.svg" alt="">
-									</div>
-									<h4> Snacks </h4>
-								</a>
-							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-6.svg" alt="">
-									</div>
-									<h4> Home Care </h4>
-								</a>
-							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-7.svg" alt="">
-									</div>
-									<h4> Noodles & Sauces </h4>
-								</a>
-							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-8.svg" alt="">
-									</div>
-									<h4> Personal Care </h4>
-								</a>
-							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-9.svg" alt="">
-									</div>
-									<h4> Pet Care </h4>
-								</a>
-							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-10.svg" alt="">
-									</div>
-									<h4> Meat & Seafood </h4>
-								</a>
-							</div>
-							<div class="item">
-								<a href="#" class="category-item">
-									<div class="cate-img">
-										<img src="resources\frontend\images/category/icon-11.svg" alt="">
-									</div>
-									<h4> Electronics </h4>
-								</a>
-							</div>
+							@endforeach
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- Categories End -->
+		
+	
+
+
+
 		<!-- Featured Products Start -->
 		<div class="section145">
 			<div class="container">
@@ -220,198 +148,53 @@
 					</div>
 					<div class="col-md-12">
 						<div class="owl-carousel featured-slider owl-theme">
+							@foreach($product as $product)
 							<div class="item">
 								<div class="product-item">
-									<a href="single_product_view.html" class="product-img">
-										<img src="resources\frontend\images/product/img-1.jpg" alt="">
+									
+									<a href="product/{{$product['id']}}" class="product-img">
+										<img src="{{$product->product_image}}"style="width:120px;height:100px;class="center"" alt="">
+										
 										<div class="product-absolute-options">
-											<span class="offer-badge-1">6% off</span>
-											<span class="like-icon" title="wishlist"></span>
+									
 										</div>
 									</a>
 									<div class="product-text-dt">
 										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div class="product-price">$12 <span>$15</span></div>
+										<h4>{{$product->product_name}}</h4>
+
+										<div class="product-price"><td>৳{{$product->product_selling_price}}</td> <span><td>৳{{$product->product_regular_price}}<td></span></div>
+										<!-- <td>{{$product->product_selling_price}}<td> -->
 										<div class="qty-cart">
+											<form action="{{url('add_to_cart')}}" method="POST">                 
+												@csrf
 											<div class="quantity buttons_added">
 												<input type="button" value="-" class="minus minus-btn">
-												<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
+												<input type="number" step="1" name="cart_product_quantity" value="1" class="input-text qty text">
 												<input type="button" value="+" class="plus plus-btn">
 											</div>
-											<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
+										
+											<span class="cart-icon" style="float: right;">
+												
+													<input type="hidden" name="product_id" 
+													value="{{$product->id}}">
+													
+													<input type="hidden" name="product_price" 
+													value="{{$product->product_selling_price}}">
+													<button type="submit">
+													<i class="uil uil-shopping-cart-alt"></i></button>
+
+
+													
+												</form>
+											</span>
+									
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="item">
-								<div class="product-item">
-									<a href="single_product_view.html" class="product-img">
-										<img src="resources\frontend\images/product/img-2.jpg" alt="">
-										<div class="product-absolute-options">
-											<span class="offer-badge-1">2% off</span>
-											<span class="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div class="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div class="product-price">$10 <span>$13</span></div>
-										<div class="qty-cart">
-											<div class="quantity buttons_added">
-												<input type="button" value="-" class="minus minus-btn">
-												<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-												<input type="button" value="+" class="plus plus-btn">
-											</div>
-											<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="product-item">
-									<a href="single_product_view.html" class="product-img">
-										<img src="resources\frontend\images/product/img-3.jpg" alt="">
-										<div class="product-absolute-options">
-											<span class="offer-badge-1">5% off</span>
-											<span class="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div class="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div class="product-price">$5 <span>$8</span></div>
-										<div class="qty-cart">
-											<div class="quantity buttons_added">
-												<input type="button" value="-" class="minus minus-btn">
-												<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-												<input type="button" value="+" class="plus plus-btn">
-											</div>
-											<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="product-item">
-									<a href="single_product_view.html" class="product-img">
-										<img src="resources\frontend\images/product/img-4.jpg" alt="">
-										<div class="product-absolute-options">
-											<span class="offer-badge-1">3% off</span>
-											<span class="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div class="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div class="product-price">$15 <span>$20</span></div>
-										<div class="qty-cart">
-											<div class="quantity buttons_added">
-												<input type="button" value="-" class="minus minus-btn">
-												<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-												<input type="button" value="+" class="plus plus-btn">
-											</div>
-											<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="product-item">
-									<a href="single_product_view.html" class="product-img">
-										<img src="resources\frontend\images/product/img-5.jpg" alt="">
-										<div class="product-absolute-options">
-											<span class="offer-badge-1">2% off</span>
-											<span class="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div class="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div class="product-price">$9 <span>$10</span></div>
-										<div class="qty-cart">
-											<div class="quantity buttons_added">
-												<input type="button" value="-" class="minus minus-btn">
-												<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-												<input type="button" value="+" class="plus plus-btn">
-											</div>
-											<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="product-item">
-									<a href="single_product_view.html" class="product-img">
-										<img src="resources\frontend\images/product/img-6.jpg" alt="">
-										<div class="product-absolute-options">
-											<span class="offer-badge-1">2% off</span>
-											<span class="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div class="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div class="product-price">$7 <span>$8</span></div>
-										<div class="qty-cart">
-											<div class="quantity buttons_added">
-												<input type="button" value="-" class="minus minus-btn">
-												<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-												<input type="button" value="+" class="plus plus-btn">
-											</div>
-											<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="product-item">
-									<a href="single_product_view.html" class="product-img">
-										<img src="resources\frontend\images/product/img-7.jpg" alt="">
-										<div class="product-absolute-options">
-											<span class="offer-badge-1">1% off</span>
-											<span class="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div class="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div class="product-price">$6.95 <span>$7</span></div>
-										<div class="qty-cart">
-											<div class="quantity buttons_added">
-												<input type="button" value="-" class="minus minus-btn">
-												<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-												<input type="button" value="+" class="plus plus-btn">
-											</div>
-											<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="product-item">
-									<a href="single_product_view.html" class="product-img">
-										<img src="resources\frontend\images/product/img-8.jpg" alt="">
-										<div class="product-absolute-options">
-											<span class="offer-badge-1">3% off</span>
-											<span class="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div class="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div class="product-price">$8 <span>$10</span></div>
-										<div class="qty-cart">
-											<div class="quantity buttons_added">
-												<input type="button" value="-" class="minus minus-btn">
-												<input type="number" step="1" name="quantity" value="1" class="input-text qty text">
-												<input type="button" value="+" class="plus plus-btn">
-											</div>
-											<span class="cart-icon"><i class="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
+							</div>		
+
+							@endforeach
 						</div>
 					</div>
 				</div>

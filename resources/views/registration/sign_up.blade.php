@@ -21,6 +21,7 @@
    
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
 	</head>
 
 <body>
@@ -36,38 +37,39 @@
 							</div>
 							<div class="form-dt">
 								<div class="form-inpts checout-address-step">
-									<form>
+									<!-- <form action="sign_up" method="POST"> -->
+									
 										<div class="form-title"><h6>Sign Up</h6></div>
 										<div class="form-group pos_rel">
-											<input id="name" type="text" placeholder="Full name" class="form-control lgn_input" required="">
+											<input id="name" type="text" placeholder="Full name" class="form-control lgn_input" name="name" required="">
 											<i class="uil uil-user-circle lgn_icon"></i>
 										</div>
 										<div class="form-group pos_rel">
-											<input id="email"  type="email" placeholder="Email Address" class="form-control lgn_input" required="">
+											<input id="email" name="email" type="email" placeholder="Email Address" class="form-control lgn_input" required="">
 											<i class="uil uil-envelope lgn_icon"></i>
 										</div>
 										<div class="form-group pos_rel">
-											<input id="number" type="text" placeholder="Phone Number" class="form-control lgn_input" required="">
+											<input id="number" name="number" type="text" placeholder="Phone Number" class="form-control lgn_input" required="">
 											<i class="uil uil-mobile-android-alt lgn_icon"></i>
 										</div>
 
 										<div class="form-group pos_rel">
-											<input id="address" type="text" placeholder="Address" class="form-control lgn_input" required="">
+											<input id="address" name="address" type="text" placeholder="Address" class="form-control lgn_input" required="">
 											<i class="uil uil-location-point lgn_icon"></i>
 										</div>
 
 										<div class="form-group pos_rel">
-											<input id="district" type="text" placeholder="District" class="form-control lgn_input" required="">
+											<input id="district" name="district" type="text" placeholder="District" class="form-control lgn_input" required="">
 											<i class="uil uil-location-pin-alt lgn_icon"></i>
 										</div>
 
 										<div class="form-group pos_rel">
-											<input id="postal_code" type="text" placeholder="Postal Code" class="form-control lgn_input" required="">
+											<input id="postal_code" name="postal_code" type="text" placeholder="Postal Code" class="form-control lgn_input" required="">
 											<i class="uil uil-postcard lgn_icon"></i>
 										</div>
 									
 										<div class="form-group pos_rel">
-											<input id="password" type="password" placeholder="Password" class="form-control lgn_input" required="">
+											<input id="password" name="password" type="password" placeholder="Password" class="form-control lgn_input" required="">
 											<i class="uil uil-padlock lgn_icon"></i>
                                         </div>
                                         
@@ -76,7 +78,7 @@
 											<i class="uil uil-padlock lgn_icon"></i>
 										</div> --}}
 										<button class="login-btn hover-btn" id="sign_up" type="button">Sign Up Now</button>
-									</form>
+								
 								</div>
 								<div class="signup-link">
 									<p>I have an account? - <a href="{{url('sign_in')}}">Sign In Now</a></p>
@@ -97,7 +99,7 @@
 	<script src="{{asset('resources')}}/frontend/js/jquery-3.3.1.min.js?{{time()}}"></script>
 	<script src="{{asset('resources')}}/frontend/js/jquery.countdown.min.js?{{time()}}"></script>
 	
-
+ 
 
 	
 	

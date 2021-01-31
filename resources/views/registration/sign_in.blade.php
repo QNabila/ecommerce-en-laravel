@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	
 <head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,7 +30,8 @@
 	</head>
 
 <body>
-	@csrf
+<form action ="login" method="post">
+@csrf
 	<div class="sign-inup">
 		<div class="container">
 			<div class="row justify-content-center">
@@ -48,14 +48,16 @@
 							
 										<div class="form-title"><h6>Sign In</h6></div>
 										<div class="form-group pos_rel">
-											<input id="contact_number" type="text" placeholder="Enter Phone Number" class="form-control lgn_input" required="">
+											<input id="contact_number" type="text" placeholder="Enter Phone Number" name ="number" class="form-control lgn_input" required="">
 											<i class="uil uil-mobile-android-alt lgn_icon"></i>
 										</div>
 										<div class="form-group pos_rel">
-											<input id="password" type="password" placeholder="Enter Password" class="form-control lgn_input" required="">
+											<input id="password" type="password" placeholder="Enter Password" name ="password"class="form-control lgn_input" required="">
 											<i class="uil uil-padlock lgn_icon"></i>
 										</div>
-										<button   type="button" id="login" class="login-btn hover-btn">Log In</button>
+									
+										<button  type="submit" id="login" class="login-btn hover-btn">Log In</button>
+										</form>
 
 								</div>
 								<div class="password-forgor">
